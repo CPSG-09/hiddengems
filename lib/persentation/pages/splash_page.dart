@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hiddengems/common/constants.dart';
+import 'package:hiddengems/persentation/pages/login_page.dart';
+import 'package:hiddengems/persentation/pages/signup_page.dart';
+import 'package:hiddengems/persentation/widgets/button.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kWhite,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          padding: const EdgeInsets.symmetric(horizontal: 28.0),
           child: Column(
             children: [
               const Spacer(),
@@ -32,87 +40,27 @@ class SplashPage extends StatelessWidget {
               ),
               const Spacer(),
               // Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    backgroundColor: kPurple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                  ),
-                  child: const Text('Masuk Untuk Memulai'),
-                ),
+              Button(
+                name: 'Masuk Untuk Memulai',
+                onPressed: () {
+                  Navigator.pushNamed(context, LoginPage.ROUTE_NAME);
+                },
+                backgroundColor: kPurple,
+                textColor: kWhite,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: kPurple),
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                    ),
-                    child: Text(
-                      'Daftar',
-                      style: kButton.copyWith(color: kPurple),
-                    ),
-                  ),
-                ),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Button(
+                    name: 'Daftar',
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignUpPage.ROUTE_NAME);
+                    },
+                    backgroundColor: Colors.transparent,
+                    textColor: kPurple,
+                  )),
+              const SizedBox(
+                height: 16.0,
               ),
-
-              // SizedBox(height: 50),
-
-              // // button
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 27.0),
-              //   child: InkWell(
-              //     onTap: () {},
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         color: kPurple,
-              //         borderRadius: BorderRadius.circular(100),
-              //       ),
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(15.0),
-              //         child: Center(
-              //           child: Text(
-              //             'Masuk Untuk Memulai',
-              //             style: kButton.copyWith(color: kWhite),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 15),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 27.0),
-              //   child: InkWell(
-              //     onTap: () {},
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         border: Border.all(color: kPurple, width: 2),
-              //         borderRadius: BorderRadius.circular(100),
-              //       ),
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(15.0),
-              //         child: Center(
-              //           child: Text(
-              //             'Daftar',
-              //             style: kButton.copyWith(color: kPurple),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
