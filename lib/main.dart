@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiddengems/common/utils.dart';
+import 'package:hiddengems/persentation/pages/home_page.dart';
 import 'package:hiddengems/persentation/pages/login_page.dart';
 import 'package:hiddengems/persentation/pages/signup_page.dart';
 import 'package:hiddengems/persentation/pages/splash_page.dart';
@@ -28,12 +29,14 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [routeObserver],
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
-          case '/home':
+          case '/':
             return MaterialPageRoute(builder: (_) => const SplashPage());
           case LoginPage.ROUTE_NAME:
-            return MaterialPageRoute(builder: (_) => LoginPage());
+            return MaterialPageRoute(builder: (_) => const LoginPage());
           case SignUpPage.ROUTE_NAME:
-            return MaterialPageRoute(builder: (_) => SignUpPage());
+            return MaterialPageRoute(builder: (_) => const SignUpPage());
+          case HomePage.ROUTE_NAME:
+            return MaterialPageRoute(builder: (_) => const HomePage());
           default:
             return MaterialPageRoute(builder: (_) {
               return const Scaffold(

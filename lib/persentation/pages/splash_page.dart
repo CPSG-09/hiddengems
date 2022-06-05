@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:hiddengems/common/constants.dart';
 import 'package:hiddengems/persentation/pages/login_page.dart';
@@ -22,9 +24,14 @@ class _SplashPageState extends State<SplashPage> {
           child: Column(
             children: [
               const Spacer(),
-              const Icon(
-                Icons.access_alarm,
-                size: 80,
+              Container(
+                height: 128,
+                width: 128,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/logo_app.png'),
+                      fit: BoxFit.cover),
+                ),
               ),
               Text(
                 'Hidden Gems',
@@ -38,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
                 'Keseharian Anda',
                 style: kSubtitleApp.copyWith(color: kGrey),
               ),
-              const Spacer(),
+              Spacer(),
               // Button
               Button(
                 name: 'Masuk Untuk Memulai',

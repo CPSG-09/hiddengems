@@ -22,4 +22,4 @@ final TextStyle kFieldTitle =
 final TextStyle kFieldInput = GoogleFonts.heebo(fontSize: 14);
 final TextStyle kTitle =
     GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold);
-final TextStyle kSubtitle = GoogleFonts.heebo(fontSize: 10);
+final TextStyle kSubtitle = GoogleFonts.heebo(fontSize: 12);

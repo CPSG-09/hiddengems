@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hiddengems/common/constants.dart';
-import 'package:hiddengems/persentation/pages/login_page.dart';
 import 'package:hiddengems/persentation/widgets/button.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,6 +12,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final emailController = TextEditingController();
+  String password = '';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +28,9 @@ class _SignUpPageState extends State<SignUpPage> {
         child: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, LoginPage.ROUTE_NAME);
+              Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
           ),
           backgroundColor: kPurple,
           title: Text(
@@ -36,89 +40,94 @@ class _SignUpPageState extends State<SignUpPage> {
           centerTitle: true,
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 28),
-          child: Column(
-            children: [
-              Form(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: Text(
-                        'Nama',
-                        style: kFieldTitle,
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Nama Lengkap',
-                        border: const OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: kPurple, width: 2),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 28),
+            child: Column(
+              children: [
+                Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          'Nama',
+                          style: kFieldTitle,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: kPurple.withOpacity(0.2),
+                      ),
+                      TextFormField(
+                        style: kFieldInput,
+                        decoration: InputDecoration(
+                          hintText: 'Nama Lengkap',
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: kPurple, width: 2),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: kPurple.withOpacity(0.2),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 28.0),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: Text(
-                        'Email',
-                        style: kFieldTitle,
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Alamat Email',
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: kPurple, width: 5),
+                      const SizedBox(height: 28.0),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          'Email',
+                          style: kFieldTitle,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: kPurple.withOpacity(0.2),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        style: kFieldInput,
+                        decoration: InputDecoration(
+                          hintText: 'Alamat Email',
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: kPurple, width: 5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: kPurple.withOpacity(0.2),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 28.0),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6),
-                      child: Text(
-                        'Kata Sandi',
-                        style: kFieldTitle,
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Kata Sandi',
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: kPurple, width: 5),
+                      const SizedBox(height: 28.0),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          'Kata Sandi',
+                          style: kFieldTitle,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: kPurple.withOpacity(0.2),
+                      ),
+                      TextFormField(
+                        style: kFieldInput,
+                        decoration: InputDecoration(
+                          hintText: 'Kata Sandi',
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: kPurple, width: 5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: kPurple.withOpacity(0.2),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 28),
-              Button(
-                name: 'Daftar',
-                onPressed: () {},
-                backgroundColor: kPurple,
-                textColor: kWhite,
-              ),
-            ],
+                const SizedBox(height: 28),
+                Button(
+                  name: 'Daftar',
+                  onPressed: () {},
+                  backgroundColor: kPurple,
+                  textColor: kWhite,
+                ),
+              ],
+            ),
           ),
         ),
       ),
