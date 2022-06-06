@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
           backgroundColor: backgroundColor,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            side: const BorderSide(color: kPurple),
+            side: const BorderSide(color: kPurple, width: 2),
             borderRadius: BorderRadius.circular(100.0),
           ),
         ),

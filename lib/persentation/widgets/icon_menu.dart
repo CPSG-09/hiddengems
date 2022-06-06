@@ -17,24 +17,29 @@ class IconMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+    return SizedBox(
+      height: 90,
+      width: 70,
+      child: Column(
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(image), fit: BoxFit.cover),
+              ),
             ),
           ),
-        ),
-        Text(
-          title,
-          style: kSubtitle.copyWith(color: titleColor),
-        )
-      ],
+          Text(
+            title,
+            style: kSubtitle.copyWith(color: titleColor),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

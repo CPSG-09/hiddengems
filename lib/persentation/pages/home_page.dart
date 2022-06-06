@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hiddengems/common/constants.dart';
+import 'package:hiddengems/persentation/pages/profile_page.dart';
+import 'package:hiddengems/persentation/pages/tambah_tampat_page.dart';
 import 'package:hiddengems/persentation/widgets/icon_menu.dart';
+import 'package:hiddengems/persentation/widgets/item_card.dart';
 
 class HomePage extends StatefulWidget {
   static const ROUTE_NAME = '/home';
@@ -30,8 +33,11 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.home, size: 32, color: kWhite),
               ),
               IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.person, size: 32, color: kWhite),
+                onPressed: () {
+                  Navigator.pushNamed(context, ProfilePage.ROUTE_NAME);
+                },
+                icon: const CircleAvatar(
+                    child: Icon(Icons.person, size: 32, color: kWhite)),
               ),
             ],
           ),
@@ -160,13 +166,13 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {},
                                 ),
                                 IconMenu(
-                                  title: 'Kelontong',
+                                  title: 'Warung Kelontong',
                                   image: 'assets/icons/icon_kelontong.png',
                                   onTap: () {},
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 22),
+                            const SizedBox(height: 6),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -177,30 +183,69 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {},
                                 ),
                                 IconMenu(
-                                  title: 'Rental',
+                                  title: 'Rental Kendaraan',
                                   image: 'assets/icons/icon_rental.png',
                                   titleColor: kBlack,
                                   onTap: () {},
                                 ),
                                 IconMenu(
-                                  title: 'Warung',
+                                  title: 'Warung Makan',
                                   image: 'assets/icons/icon_warung_makan.png',
                                   titleColor: kBlack,
                                   onTap: () {},
                                 ),
                                 IconMenu(
-                                  title: 'Tambah',
+                                  title: 'Tambah Tempat',
                                   image: 'assets/icons/icon_tambah_tempat.png',
                                   titleColor: kBlack,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, TambahTempatPage.ROUTE_NAME);
+                                  },
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 20),
                             Text(
                               'Tempat Terbaru',
                               style: kFieldTitle.copyWith(color: kPurple),
                             ),
+                            const SizedBox(height: 16),
+                            Expanded(
+                                child: ListView(
+                              children: [
+                                ItemCard(
+                                  title: 'Bengekal Maju Abadi',
+                                  address: 'Jl. Diponegoro selatan no 14 Bali',
+                                  time: '08.00 - 22.00',
+                                  onTap: () {},
+                                ),
+                                ItemCard(
+                                  title: 'Bengekal Maju Abadi',
+                                  address: 'Jl. Diponegoro selatan no 14 Bali',
+                                  time: '08.00 - 22.00',
+                                  onTap: () {},
+                                ),
+                                ItemCard(
+                                  title: 'Bengekal Maju Abadi',
+                                  address: 'Jl. Diponegoro selatan no 14 Bali',
+                                  time: '08.00 - 22.00',
+                                  onTap: () {},
+                                ),
+                                ItemCard(
+                                  title: 'Bengekal Maju Abadi',
+                                  address: 'Jl. Diponegoro selatan no 14 Bali',
+                                  time: '08.00 - 22.00',
+                                  onTap: () {},
+                                ),
+                                ItemCard(
+                                  title: 'Bengekal Maju Abadi',
+                                  address: 'Jl. Diponegoro selatan no 14 Bali',
+                                  time: '08.00 - 22.00',
+                                  onTap: () {},
+                                ),
+                              ],
+                            )),
                           ],
                         ),
                       ),
