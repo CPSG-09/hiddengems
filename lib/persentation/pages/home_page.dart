@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiddengems/common/constants.dart';
 import 'package:hiddengems/persentation/pages/profile_page.dart';
+import 'package:hiddengems/persentation/pages/search_page.dart';
 import 'package:hiddengems/persentation/pages/tambah_tampat_page.dart';
 import 'package:hiddengems/persentation/widgets/icon_menu.dart';
 import 'package:hiddengems/persentation/widgets/item_card.dart';
@@ -45,7 +46,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: kPink,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+        },
         label: Text(
           'Tempat Terdekat',
           style: kButton,
@@ -93,20 +96,32 @@ class _HomePageState extends State<HomePage> {
                                 color: kWhite,
                                 borderRadius: BorderRadius.circular(100)),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(2),
-                            width: 209,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: kGrey,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: TextField(
-                              style: kFieldInput,
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.search),
-                                border: InputBorder.none,
-                                hintText: 'Search',
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, SearchPage.ROUTE_NAME);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              width: 209,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: kGrey,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  const Icon(
+                                    Icons.search,
+                                    color: kWhite,
+                                  ),
+                                  Text(
+                                    'Cari HiddenGems....',
+                                    style: kFieldInput.copyWith(color: kWhite),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

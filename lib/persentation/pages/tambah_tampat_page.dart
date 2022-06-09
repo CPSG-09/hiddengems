@@ -199,7 +199,7 @@ class _TambahTempatPageState extends State<TambahTempatPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 28),
+                      const SizedBox(height: 28),
                       Button(
                           name: 'Tambah Tempat',
                           onPressed: () {},

@@ -3,6 +3,7 @@ import 'package:hiddengems/common/utils.dart';
 import 'package:hiddengems/persentation/pages/home_page.dart';
 import 'package:hiddengems/persentation/pages/login_page.dart';
 import 'package:hiddengems/persentation/pages/profile_page.dart';
+import 'package:hiddengems/persentation/pages/search_page.dart';
 import 'package:hiddengems/persentation/pages/signup_page.dart';
 import 'package:hiddengems/persentation/pages/splash_page.dart';
 import 'package:hiddengems/persentation/pages/tambah_tampat_page.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const ProfilePage());
           case TambahTempatPage.ROUTE_NAME:
             return MaterialPageRoute(builder: (_) => const TambahTempatPage());
+          case SearchPage.ROUTE_NAME:
+            return MaterialPageRoute(builder: (_) => const SearchPage());
           default:
             return MaterialPageRoute(builder: (_) {
               return const Scaffold(
