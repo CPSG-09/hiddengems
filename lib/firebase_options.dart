@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,31 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDcNl6FpMGc59AXnE4pgOaosUQ3CM_Q9Ek',
-    appId: '1:21437395287:web:44a401dba4ffe280d5ce12',
-    messagingSenderId: '21437395287',
-    projectId: 'latihan-firebase-f09e2',
-    authDomain: 'latihan-firebase-f09e2.firebaseapp.com',
-    storageBucket: 'latihan-firebase-f09e2.appspot.com',
-    measurementId: 'G-7S1JRB26YR',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDmIzSQz3z4tqxfY82_GEbIkK4DMIBRUw4',
-    appId: '1:21437395287:android:ac98c22503274be7d5ce12',
-    messagingSenderId: '21437395287',
-    projectId: 'latihan-firebase-f09e2',
-    storageBucket: 'latihan-firebase-f09e2.appspot.com',
+    apiKey: 'AIzaSyCqLRrIAwl7kWfA5pgITS9vaAynKYxOzrA',
+    appId: '1:87981794932:android:da380464f43b894a3f9321',
+    messagingSenderId: '87981794932',
+    projectId: 'hidden-gems-cpsg-09',
+    storageBucket: 'hidden-gems-cpsg-09.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCDUbynG9ALXJUvgnBmb-MCGQVx7jHkVHo',
-    appId: '1:21437395287:ios:d8641c1215d5f691d5ce12',
-    messagingSenderId: '21437395287',
-    projectId: 'latihan-firebase-f09e2',
-    storageBucket: 'latihan-firebase-f09e2.appspot.com',
-    iosClientId: '21437395287-0lrifc7ng257d6mvf0hv18aa4hdkkhpt.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAy880PbHyPwlg7f-9ocVAg-C992RsJxB0',
+    appId: '1:87981794932:ios:74ff878393b558623f9321',
+    messagingSenderId: '87981794932',
+    projectId: 'hidden-gems-cpsg-09',
+    storageBucket: 'hidden-gems-cpsg-09.appspot.com',
+    iosClientId: '87981794932-nim8e33c3tujmrhgatgubrc8dpkp2cuk.apps.googleusercontent.com',
     iosBundleId: 'com.example.hiddengems',
   );
 }

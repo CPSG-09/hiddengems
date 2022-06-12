@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:hiddengems/common/constants.dart';
 import 'package:hiddengems/persentation/pages/login_page.dart';
-import 'package:hiddengems/persentation/pages/signup_page.dart';
-import 'package:hiddengems/persentation/widgets/button.dart';
+import 'package:hiddengems/persentation/pages/sign_up_page.dart';
+import 'package:hiddengems/persentation/widgets/cta_button.dart';
+import 'package:hiddengems/theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -17,59 +17,68 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28.0),
-          child: Column(
-            children: [
-              const Spacer(),
-              Container(
-                height: 128,
-                width: 128,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/logo_app.png'),
-                      fit: BoxFit.cover),
+      backgroundColor: AppTheme.bgWhite,
+      appBar: AppBar(
+        toolbarHeight: 102,
+        backgroundColor: AppTheme.bgWhite,
+        systemOverlayStyle: AppTheme.systemUiOverlayStyle,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 16),
+        child: Column(
+          children: [
+            const Spacer(),
+            Container(
+              height: 128,
+              width: 128,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/splash_logo.png'),
+                    fit: BoxFit.cover),
+              ),
+            ),
+            Text(
+              'Hidden Gems',
+              style: AppTheme.poppins24BoldBlueDark,
+            ),
+            Text(
+              'Temukan Layanan Esensial',
+              style: AppTheme.poppins16BoldGreyPurple,
+            ),
+            Text(
+              'Keseharian Anda',
+              style: AppTheme.poppins16BoldGreyPurple,
+            ),
+            Spacer(),
+            // Button
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CTAButton(
+                  label: 'Masuk untuk Memulai',
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ));
+                  },
                 ),
-              ),
-              Text(
-                'Hidden Gems',
-                style: kTitleApp,
-              ),
-              Text(
-                'Temukan Layanan Esensial',
-                style: kSubtitleApp.copyWith(color: kGrey),
-              ),
-              Text(
-                'Keseharian Anda',
-                style: kSubtitleApp.copyWith(color: kGrey),
-              ),
-              Spacer(),
-              // Button
-              Button(
-                name: 'Masuk Untuk Memulai',
-                onPressed: () {
-                  Navigator.pushNamed(context, LoginPage.ROUTE_NAME);
-                },
-                backgroundColor: kPurple,
-                textColor: kWhite,
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Button(
-                    name: 'Daftar',
-                    onPressed: () {
-                      Navigator.pushNamed(context, SignUpPage.ROUTE_NAME);
+                const SizedBox(height: 16),
+                CTAButton(
+                    label: 'Daftar',
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpPage(),
+                          ));
                     },
-                    backgroundColor: Colors.transparent,
-                    textColor: kPurple,
-                  )),
-              const SizedBox(
-                height: 16.0,
-              ),
-            ],
-          ),
+                    secondary: true),
+              ],
+            ),
+          ],
         ),
       ),
     );

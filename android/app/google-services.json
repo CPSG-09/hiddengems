@@ -1,63 +1,41 @@
 {
   "project_info": {
-    "project_number": "21437395287",
-    "project_id": "latihan-firebase-f09e2",
-    "storage_bucket": "latihan-firebase-f09e2.appspot.com"
+    "project_number": "87981794932",
+    "project_id": "hidden-gems-cpsg-09",
+    "storage_bucket": "hidden-gems-cpsg-09.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:21437395287:android:7828ef47639431d7d5ce12",
-        "android_client_info": {
-          "package_name": "com.dicoding.ditonton"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "21437395287-1cgfsprc3tgui8hj3schmhdffja7thlq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDmIzSQz3z4tqxfY82_GEbIkK4DMIBRUw4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "21437395287-1cgfsprc3tgui8hj3schmhdffja7thlq.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:21437395287:android:ac98c22503274be7d5ce12",
+        "mobilesdk_app_id": "1:87981794932:android:da380464f43b894a3f9321",
         "android_client_info": {
           "package_name": "com.example.hiddengems"
         }
       },
       "oauth_client": [
         {
-          "client_id": "21437395287-1cgfsprc3tgui8hj3schmhdffja7thlq.apps.googleusercontent.com",
+          "client_id": "87981794932-2a2g6vnk5thkr9gne4j5p5van0afcerc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDmIzSQz3z4tqxfY82_GEbIkK4DMIBRUw4"
+          "current_key": "AIzaSyCqLRrIAwl7kWfA5pgITS9vaAynKYxOzrA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "21437395287-1cgfsprc3tgui8hj3schmhdffja7thlq.apps.googleusercontent.com",
+              "client_id": "87981794932-2a2g6vnk5thkr9gne4j5p5van0afcerc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "87981794932-nim8e33c3tujmrhgatgubrc8dpkp2cuk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hiddengems"
+              }
             }
           ]
         }

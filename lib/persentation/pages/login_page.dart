@@ -1,13 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hiddengems/common/constants.dart';
+import 'package:hiddengems/data/auth_repository.dart';
 import 'package:hiddengems/persentation/pages/home_page.dart';
-import 'package:hiddengems/persentation/pages/signup_page.dart';
-import 'package:hiddengems/persentation/widgets/button.dart';
+import 'package:hiddengems/persentation/pages/sign_up_page.dart';
+import 'package:hiddengems/persentation/widgets/aux_button.dart';
+import 'package:hiddengems/persentation/widgets/cta_button.dart';
+import 'package:hiddengems/persentation/widgets/top_bar.dart';
+import 'package:hiddengems/theme.dart';
+import 'package:hiddengems/utils.dart';
 
 class LoginPage extends StatefulWidget {
-  static const ROUTE_NAME = '/login';
-
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -15,9 +18,40 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  String password = '';
   bool isPasswordVisible = true;
+  bool isLoading = false;
+
+  String email = '';
+  String password = '';
+
+  final formKey = GlobalKey<FormState>();
+
+  void login() async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+      setState(() {
+        isLoading = true;
+      });
+
+      try {
+        await Future.delayed(const Duration(seconds: 1));
+        await AuthRepository.login(email, password);
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ));
+      } catch (e) {
+        AppUtils.showSnackbar(context, 'Email atau password salah.');
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -27,30 +61,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(64.0),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-          backgroundColor: kPurple,
-          title: Text(
-            'Masuk',
-            style: kAppBar,
-          ),
-          centerTitle: true,
-        ),
-      ),
+      appBar: const TopBar(titleText: 'Masuk'),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 28),
+            padding: const EdgeInsets.all(28),
             child: Column(
               children: [
                 Form(
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -58,52 +77,35 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.only(bottom: 6),
                         child: Text(
                           'Email',
-                          style: kFieldTitle,
+                          style: AppTheme.poppins14BoldBlueDark,
                         ),
                       ),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        style: kFieldInput,
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          hintText: 'Alamat Email',
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: kPurple, width: 2),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: kPurple.withOpacity(0.2),
-                            ),
-                          ),
-                        ),
+                        style: AppTheme.heebo14RegularBlack,
+                        decoration: AppTheme.inputDecoration(''),
+                        validator: (input) => AppUtils.validateEmpty(input),
+                        onSaved: (input) => email = input ?? '',
                       ),
                       const SizedBox(height: 28.0),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 6),
                         child: Text(
                           'Kata Sandi',
-                          style: kFieldTitle,
+                          style: AppTheme.poppins14BoldBlueDark,
                         ),
                       ),
                       TextFormField(
-                        style: kFieldInput,
-                        decoration: InputDecoration(
-                          hintText: 'Kata Sandi',
+                        style: AppTheme.heebo14RegularBlack,
+                        validator: (input) => AppUtils.validateEmpty(input),
+                        onSaved: (input) => password = input ?? '',
+                        decoration: AppTheme.inputDecoration('').copyWith(
                           suffixIcon: IconButton(
                             onPressed: () => setState(
                                 () => isPasswordVisible = !isPasswordVisible),
                             icon: isPasswordVisible
-                                ? const Icon(Icons.visibility_off)
-                                : const Icon(Icons.visibility),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: kPurple, width: 5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: kPurple.withOpacity(0.2),
-                            ),
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
                           ),
                         ),
                         obscureText: isPasswordVisible,
@@ -112,65 +114,42 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 28),
-                Button(
-                  name: 'Masuk',
-                  onPressed: () {
-                    Navigator.pushNamed(context, HomePage.ROUTE_NAME);
-                  },
-                  backgroundColor: kPurple,
-                  textColor: kWhite,
+                CTAButton(
+                  label: 'Masuk',
+                  onTap: () => login(),
+                  isEnabled: !isLoading,
                 ),
                 const SizedBox(height: 28),
                 Center(
                   child: Text(
                     'atau',
-                    style: GoogleFonts.poppins(fontSize: 10),
+                    style: AppTheme.poppins10SemiBoldGrey,
                   ),
                 ),
                 const SizedBox(height: 28),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: 147,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: kPurple, width: 2),
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                        ),
-                        child: Text(
-                          'Lupa Kata Sandi',
-                          style: kButton.copyWith(fontSize: 12, color: kPurple),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 147,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, SignUpPage.ROUTE_NAME);
+                    // Expanded(
+                    //   child: AuxButton(
+                    //     label: 'Lupa Kata Sandi?',
+                    //     onTap: () {},
+                    //   ),
+                    // ),
+                    // const SizedBox(width: 10),
+                    Expanded(
+                      child: AuxButton(
+                        label: 'Daftar',
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpPage(),
+                            ),
+                          );
                         },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: kPurple, width: 2),
-                            borderRadius: BorderRadius.circular(100.0),
-                          ),
-                        ),
-                        child: Text(
-                          'Daftar',
-                          style: kButton.copyWith(fontSize: 12, color: kPurple),
-                        ),
                       ),
-                    ),
+                    )
                   ],
                 )
               ],

@@ -1,61 +1,49 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:hiddengems/common/constants.dart';
-import 'package:hiddengems/persentation/widgets/button.dart';
+import 'package:hiddengems/data/auth_repository.dart';
+import 'package:hiddengems/main.dart';
+import 'package:hiddengems/persentation/widgets/aux_icon_button.dart';
+import 'package:hiddengems/persentation/widgets/top_bar.dart';
+import 'package:hiddengems/theme.dart';
 
 class ProfilePage extends StatelessWidget {
-  static const ROUTE_NAME = '/profile';
-
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(64.0),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+      appBar: const TopBar(titleText: 'Profil'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Masuk sebagai', style: AppTheme.poppins14BoldBlueDark),
+              Text(AuthRepository.getEmail() ?? 'Tidak ada email',
+                  style: AppTheme.poppins24BoldBlueDark),
+              const SizedBox(height: 28),
+              Row(
+                children: [
+                  AuxIconButton(
+                    label: 'Keluar',
+                    onTap: () async {
+                      await AuthRepository.signOut();
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginChecker(),
+                          ));
+                    },
+                    iconData: Icons.logout,
+                  ),
+                  const Spacer()
+                ],
+              )
+            ],
           ),
-          backgroundColor: kPurple,
-          title: Text(
-            'Profile',
-            style: kAppBar,
-          ),
-          centerTitle: true,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 29, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Masuk Sebagai',
-              style: kFieldTitle,
-            ),
-            Text(
-              'Budi Budiman',
-              style: kTitleApp,
-            ),
-            const SizedBox(height: 15),
-            Text(
-              'budi@example.com',
-              style: kFieldTitle.copyWith(color: kGrey),
-            ),
-            const Spacer(),
-            Button(
-              name: 'Keluar',
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: Colors.transparent,
-              textColor: kPurple,
-            ),
-          ],
         ),
       ),
     );
