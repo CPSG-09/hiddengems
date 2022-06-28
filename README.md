@@ -1,4 +1,4 @@
-# HiddenGems: Temukan Layanan Esensial Keseharian Anda (Bengkel, Apotik, Homestay, Kosan, Kelontong, Rental Mobil Motor)
+# HiddenGems: Temukan Layanan Esensial Keseharian Anda (Bengkel, Apotik, Penginapan, Kelontong, Rental Kendaraan)
 
 ## Grup ID: CPSG-09
 ### Nama Anggota:
