@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hiddengems/data/models/place_model.dart';
+import 'package:hiddengems/data/models/rating_model.dart';
 
 class RemoteDataRepository {
   static final placesCollection =
@@ -17,22 +18,27 @@ class RemoteDataRepository {
     final maxLong = position.longitude + 0.004;
     List<PlaceModel> placesData = [];
 
-    // Main query
+    // Query utama
     Query places = placesCollection;
 
-    // #1 Filter by category
+    // #1 Filter tempat berdasarkan kategori
+    // Proses ini berjalan di Firestore/backend
     if (category.isNotEmpty) {
       places = places.where('category', isEqualTo: category);
     }
 
-    // #2 Filter by longitude
+    // #2 Filter tempat berdasarkan longitude/garis vertikal
+    // Proses ini berjalan di Firestore/backend
     places =
         places.where('longitude', isGreaterThan: minLong, isLessThan: maxLong);
 
-    // Get data locally
+    // Download data
     try {
-      QuerySnapshot querySnapshot = await places.get();
-      placesData = querySnapshot.docs.map((doc) {
+      // Snapshot itu seperti daftar isi/index data yang akan didapatkan
+      final snapshot = await places.get();
+      // .map...dst melihat semua daftar isi
+      placesData = snapshot.docs.map((doc) {
+        // dan doc.data() mengambil data sebenarnya.
         final data = doc.data() as Map<String, dynamic>;
         return PlaceModel.fromFirestore(data);
       }).toList();
@@ -40,18 +46,23 @@ class RemoteDataRepository {
       rethrow;
     }
 
-    // #3 Filter by longitude
+    // #3 Filter tempat berdasarkan latitute/garis horizontal
+    // Proses ini berjalan di aplikasi/front-end
     placesData = placesData
         .where(
           (element) => element.latitude > minLat && element.latitude < maxLat,
         )
         .toList();
 
-    // #4 Filter by search query
+    // #4 Filter nama tempat berdasarkan query pencarian
+    // Proses ini berjalan di aplikasi/front-end
     if (query.isNotEmpty) {
       placesData = placesData
           .where(
-            (element) => element.name.contains(query),
+            // toLowerCase biar hasil pencarian tidak
+            // memperdulikan huruf besar atua kecil.
+            (element) =>
+                element.name.toLowerCase().contains(query.toLowerCase()),
           )
           .toList();
     }
@@ -62,5 +73,23 @@ class RemoteDataRepository {
   static Future<DocumentReference<Map<String, dynamic>>> addPlace(
       PlaceModel placeModel) {
     return placesCollection.add(placeModel.toFirestore());
+  }
+
+  static Future<void> addRating(
+      String placeId, String uid, RatingModel ratingModel) {
+    try {
+      return placesCollection
+          .doc(placeId)
+          .collection('ratings')
+          .doc(uid)
+          .set(ratingModel.toFirestore());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getRatings(
+      String placeId) {
+    return placesCollection.doc(placeId).collection('ratings').get();
   }
 }

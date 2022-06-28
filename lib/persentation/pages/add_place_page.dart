@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hiddengems/common.dart';
 import 'package:hiddengems/data/models/place_model.dart';
@@ -64,6 +65,9 @@ class _AddPlaceForm extends StatefulWidget {
 class _AddPlaceFormState extends State<_AddPlaceForm> {
   bool isSubmitting = false;
 
+  double longitude = 0;
+  double latitude = 0;
+
   String name = '';
   String address = '';
   String category = AppCommon.placeCategories[0];
@@ -71,6 +75,8 @@ class _AddPlaceFormState extends State<_AddPlaceForm> {
   String closingHour = AppCommon.hours[17];
 
   final formKey = GlobalKey<FormState>();
+  late GeoPoint initialPoint;
+  late MapController mapController;
 
   void addPlace() async {
     if (formKey.currentState!.validate()) {
@@ -78,8 +84,8 @@ class _AddPlaceFormState extends State<_AddPlaceForm> {
       final place = PlaceModel(
           name: name,
           address: address,
-          longitude: widget.position.longitude,
-          latitude: widget.position.latitude,
+          longitude: longitude,
+          latitude: latitude,
           openingHours: '$openingHour - $closingHour',
           category: category,
           dateAdded: DateTime.now());
@@ -99,6 +105,39 @@ class _AddPlaceFormState extends State<_AddPlaceForm> {
   }
 
   @override
+  void initState() {
+    longitude = widget.position.longitude;
+    latitude = widget.position.latitude;
+    initialPoint = GeoPoint(latitude: latitude, longitude: longitude);
+    mapController = MapController(
+      initMapWithUserPosition: false,
+      initPosition: initialPoint,
+    );
+
+    super.initState();
+  }
+
+  void pickLocation(BuildContext context) async {
+    final point = await showSimplePickerLocation(
+      context: context,
+      initPosition: initialPoint,
+      initZoom: 16,
+      initCurrentUserPosition: false,
+      textCancelPicker: 'Batal',
+    );
+
+    if (point != null) {
+      mapController.removeMarker(initialPoint);
+      longitude = point.longitude;
+      latitude = point.latitude;
+      initialPoint = GeoPoint(latitude: latitude, longitude: longitude);
+      mapController.changeLocation(initialPoint);
+
+      setState(() {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -108,7 +147,14 @@ class _AddPlaceFormState extends State<_AddPlaceForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const _AddPlaceMap(),
+              _AddPlaceMap(
+                controller: mapController,
+                point: initialPoint,
+              ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                  onPressed: () => pickLocation(context),
+                  child: const Text('Pilih lokasi')),
               const SizedBox(height: 28),
               Text(
                 'Nama Tempat',
@@ -218,7 +264,11 @@ class _AddPlaceFormState extends State<_AddPlaceForm> {
 }
 
 class _AddPlaceMap extends StatelessWidget {
+  final MapController controller;
+  final GeoPoint point;
   const _AddPlaceMap({
+    required this.controller,
+    required this.point,
     Key? key,
   }) : super(key: key);
 
@@ -238,10 +288,15 @@ class _AddPlaceMap extends StatelessWidget {
             height: 156,
             width: MediaQuery.of(context).size.width - 60,
             child: Center(
-              child: Image.asset(
-                height: 48,
-                width: 30,
-                'assets/images/pointer.png',
+              child: OSMFlutter(
+                trackMyPosition: false,
+                controller: controller,
+                initZoom: 16,
+                onMapIsReady: (isReady) {
+                  if (isReady) {
+                    controller.addMarker(point);
+                  }
+                },
               ),
             ))
       ],

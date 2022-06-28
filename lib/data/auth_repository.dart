@@ -23,6 +23,10 @@ class AuthRepository {
     return FirebaseAuth.instance.currentUser!.email;
   }
 
+  static String getUID() {
+    return FirebaseAuth.instance.currentUser!.uid;
+  }
+
   static Future<void> signOut() {
     return FirebaseAuth.instance.signOut();
   }

@@ -1,6 +1,19 @@
-forgot password
-map visualization (osm?)
-open to google maps
-rating:
-  view rating + show stars
-  add rating
+rating
+  DONE slice rating
+  DONE add rating
+  DONE make a provider for showing rating
+  DONE load all rating
+  DONE calculate star and rating writeable condition
+
+map
+  DONE open to google maps
+  DONE osm static viewer
+  DONE osm picker
+
+quality of life
+  scrollable chips in search page
+  forgot password request and reset password
+
+Future research
+  dialog/snack and routing control, whether from state management or widget.
+  nullable variable and double question mark usage '??'.

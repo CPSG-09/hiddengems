@@ -15,4 +15,14 @@ class AppUtils {
       ),
     );
   }
+
+  static String obscureEmail(String email) {
+    String obscuredEmail = '';
+
+    obscuredEmail += email[0] + email[1] + email[2];
+    obscuredEmail += '********@';
+    obscuredEmail += email.split('@')[1];
+
+    return obscuredEmail;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hiddengems/common.dart';
 import 'package:hiddengems/data/device_repository.dart';
 import 'package:hiddengems/data/models/place_model.dart';
 import 'package:hiddengems/data/remote_data_repository.dart';
@@ -10,21 +11,33 @@ class SearchProvider with ChangeNotifier {
 
   String category = '';
   String query = '';
+  int scrollIndex = 0;
 
   List<PlaceModel> near500mPlaces = [];
-  // List<PlaceModel> near1000mPlaces = [];
 
   void loadNearstPlace() async {
-    // Clear the list and set loading
+    // if (category == '') {
+    //   scrollIndex = 0;
+    // } else {
+    //   int index = 0;
+    //   AppCommon.placeCategories.asMap().forEach((key, element) {
+    //     if (element == category) {
+    //       index = key;
+    //     }
+    //   });
+    //   scrollIndex = index;
+    // }
+    // notifyListeners();
+
+    // Membersihkan daftar
     isLoading = true;
     near500mPlaces.clear();
-    // near1000mPlaces.clear();
     notifyListeners();
 
-    // Get location
+    // Mencari posisi GPS
     Position position = await DeviceRepository.determinePosition();
 
-    // Load the places
+    // Download tempatnya
     try {
       near500mPlaces = await RemoteDataRepository.loadNearestPlaces500m(
           query, category, position);

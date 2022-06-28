@@ -24,6 +24,7 @@ class AppTheme {
   static const Color fgBlack = Color.fromARGB(255, 0, 0, 0);
   static const Color fgWhite = Color.fromARGB(255, 255, 255, 255);
   static const Color fgPurple = Color.fromARGB(255, 67, 40, 99);
+  static const Color fgYellow = Color.fromARGB(255, 250, 163, 1);
   static const Color fgGreyDark = Color.fromARGB(255, 102, 102, 102);
   static const Color fgBlueDark = Color.fromARGB(255, 11, 0, 42);
   static const Color fgHalfWhite = Color.fromARGB(136, 255, 255, 255);
@@ -79,6 +80,12 @@ class AppTheme {
     color: fgPurple,
   );
 
+  static TextStyle poppins14SemiBoldRed = GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: bgRed,
+  );
+
   static TextStyle poppins12BoldBlueDark = GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.bold,
@@ -101,6 +108,13 @@ class AppTheme {
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: fgWhite,
+    decoration: TextDecoration.none,
+  );
+
+  static TextStyle poppins12RegularBlueDark = GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: fgBlueDark,
     decoration: TextDecoration.none,
   );
 

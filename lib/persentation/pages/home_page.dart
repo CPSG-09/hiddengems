@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiddengems/data/models/place_model.dart';
 import 'package:hiddengems/data/remote_data_repository.dart';
+import 'package:hiddengems/persentation/pages/about_page.dart';
 import 'package:hiddengems/persentation/pages/add_place_page.dart';
 import 'package:hiddengems/persentation/pages/profile_page.dart';
 import 'package:hiddengems/persentation/pages/search_page.dart';
@@ -341,15 +342,6 @@ class _ScrollablePlaceholder extends StatelessWidget {
         }
       },
     );
-    // return ListView.builder(
-    //   physics: const NeverScrollableScrollPhysics(),
-    //   shrinkWrap: true,
-    //   itemCount: 12,
-    //   itemBuilder: (context, index) {
-    //     return ItemCard(
-    //         title: 'title', address: 'address', time: 'time', onTap: () {});
-    //   },
-    // );
   }
 }
 
@@ -410,13 +402,23 @@ class _HomeAppBar extends StatelessWidget {
                   ),
                   const SizedBox(width: 22),
                   const _FakeSearchBar(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.more_vert,
-                      color: AppTheme.fgWhite,
-                    ),
-                  )
+                  const SizedBox(width: 12),
+                  PopupMenuButton(
+                      child: const Icon(
+                        Icons.more_vert,
+                        color: AppTheme.fgWhite,
+                      ),
+                      onSelected: (input) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AboutPage())),
+                      itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: '',
+                              child: Text('Tentang Aplikasi'),
+                            )
+                          ]),
+                  const SizedBox(width: 12),
                 ],
               ),
             ),

@@ -1,12 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hiddengems/data/auth_repository.dart';
 import 'package:hiddengems/persentation/pages/home_page.dart';
-import 'package:hiddengems/persentation/provider/home_provider.dart';
 import 'package:hiddengems/persentation/pages/splash_page.dart';
+import 'package:hiddengems/persentation/provider/home_provider.dart';
+import 'package:hiddengems/persentation/provider/rating_provider.dart';
 import 'package:hiddengems/persentation/provider/search_provider.dart';
 import 'package:hiddengems/theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 import 'persentation/provider/add_place_provider.dart';
 
@@ -20,6 +22,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => HomeProvider()),
       ChangeNotifierProvider(create: (_) => AddPlaceProvider()),
       ChangeNotifierProvider(create: (_) => SearchProvider()),
+      ChangeNotifierProvider(create: (_) => RatingProvider()),
     ],
     child: const MyApp(),
   ));
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: AppTheme.primarySwatch,
         appBarTheme: AppTheme.appBarTheme,
       ),
+      // home: const TestPage(),
       home: const LoginChecker(),
     );
   }

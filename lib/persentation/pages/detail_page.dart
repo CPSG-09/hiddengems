@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hiddengems/data/device_repository.dart';
 import 'package:hiddengems/data/models/place_model.dart';
 import 'package:hiddengems/persentation/widgets/cta_icon_button.dart';
+import 'package:hiddengems/persentation/widgets/map_display.dart';
+import 'package:hiddengems/persentation/widgets/rating_detail.dart';
 import 'package:hiddengems/theme.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class DetailPage extends StatelessWidget {
   final String id;
   final PlaceModel placeModel;
-  const DetailPage({required this.id, required this.placeModel, Key? key})
-      : super(key: key);
+  const DetailPage({
+    required this.id,
+    required this.placeModel,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,7 @@ class DetailPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            _BodyDetailPage(placeModel: placeModel),
+            _BodyDetailPage(placeModel: placeModel, id: id),
             const _BackButtonDetailPage(),
             const _CTAExternalDetailPage()
           ],
@@ -48,7 +55,12 @@ class _CTAExternalDetailPage extends StatelessWidget {
           child: CTAIconButton(
               iconData: Icons.near_me,
               label: 'Buka Rute di Google Map',
-              onTap: () {}),
+              onTap: () async {
+                final position = await DeviceRepository.determinePosition();
+
+                MapsLauncher.launchCoordinates(
+                    position.latitude, position.longitude);
+              }),
         ),
       ),
     );
@@ -93,8 +105,11 @@ class _BackButtonDetailPage extends StatelessWidget {
 }
 
 class _BodyDetailPage extends StatelessWidget {
+  final String id;
+
   final PlaceModel placeModel;
   const _BodyDetailPage({
+    required this.id,
     required this.placeModel,
     Key? key,
   }) : super(key: key);
@@ -106,15 +121,17 @@ class _BodyDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Ink(
-            height: 192,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: AppTheme.bgGrey,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16)),
-            ),
-          ),
+              height: 192,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: AppTheme.bgGrey,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16)),
+              ),
+              child: MapDisplay(
+                  longitude: placeModel.longitude,
+                  latitude: placeModel.latitude)),
           Padding(
             padding: const EdgeInsets.all(28.0),
             child: Column(
@@ -153,12 +170,12 @@ class _BodyDetailPage extends StatelessWidget {
                 Text(placeModel.name, style: AppTheme.poppins24BoldBlueDark),
                 const SizedBox(height: 12),
                 Text(placeModel.address, style: AppTheme.poppins14BoldBlueDark),
-                Ink(
-                  height: 256,
-                  child: const Center(
-                    child: Text('Fitur ulasan dalam pengembangan'),
-                  ),
-                )
+                const SizedBox(height: 12),
+                RatingDetail(
+                  placeId: id,
+                  placeName: placeModel.name,
+                ),
+                const SizedBox(height: 256),
               ],
             ),
           )

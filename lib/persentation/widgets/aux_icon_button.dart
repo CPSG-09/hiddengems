@@ -31,14 +31,14 @@ class AuxIconButton extends StatelessWidget {
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Icon(
-              Icons.logout,
+            Icon(
+              iconData,
               color: AppTheme.fgPurple,
+              size: 16,
             ),
-            const Spacer(),
             Text(label, style: AppTheme.poppins12SemiBoldPurple),
-            const Spacer(),
           ],
         ),
       ),

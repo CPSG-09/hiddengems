@@ -12,6 +12,32 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imagePath = 'assets/icons/';
+
+    switch (placeModel.category) {
+      case 'Bengkel':
+        imagePath += 'bengkel.png';
+        break;
+      case 'Apotik':
+        imagePath += 'apotik.png';
+        break;
+      case 'Penginapan':
+        imagePath += 'penginapan.png';
+        break;
+      case 'Warung Kelontong':
+        imagePath += 'kelontong.png';
+        break;
+      case 'Sedot WC':
+        imagePath += 'sedot_wc.png';
+        break;
+      case 'Rental Kendaraan':
+        imagePath += 'rental.png';
+        break;
+      case 'Warung Makan':
+        imagePath += 'warung_makan.png';
+        break;
+    }
+
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -24,7 +50,7 @@ class ItemCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
-              'assets/images/placeholder_56px.png',
+              imagePath,
               height: 56,
             ),
             const SizedBox(width: 8),

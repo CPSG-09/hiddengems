@@ -5,6 +5,7 @@ import 'package:hiddengems/persentation/widgets/item_card.dart';
 import 'package:hiddengems/persentation/widgets/loading_content.dart';
 import "package:hiddengems/theme.dart";
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SearchPage extends StatefulWidget {
   final String query;
@@ -103,25 +104,28 @@ class _SearchPageAppBar extends StatelessWidget {
                 color: AppTheme.bgWhite,
               ),
               child: Consumer<SearchProvider>(builder: (context, value, child) {
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: AppCommon.placeCategories.length + 2,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return const SizedBox(width: 28);
-                      }
-                      if (index == 1) {
-                        return _PlaceCategoryChip(
-                          label: 'Semua Tempat',
-                          isActive: value.category == '',
-                        );
-                      }
+                // print(value.scrollIndex);
+                return ScrollablePositionedList.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: AppCommon.placeCategories.length + 2,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return const SizedBox(width: 28);
+                    }
+                    if (index == 1) {
                       return _PlaceCategoryChip(
-                        label: AppCommon.placeCategories[index - 2],
-                        isActive: value.category ==
-                            AppCommon.placeCategories[index - 2],
+                        label: 'Semua Tempat',
+                        isActive: value.category == '',
                       );
-                    });
+                    }
+                    return _PlaceCategoryChip(
+                      label: AppCommon.placeCategories[index - 2],
+                      isActive: value.category ==
+                          AppCommon.placeCategories[index - 2],
+                    );
+                  },
+                  // initialScrollIndex: value.scrollIndex + 2,
+                );
               }),
             ),
           ],
