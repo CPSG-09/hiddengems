@@ -8,7 +8,7 @@
 - P2145D110 Ida Bagus Surya Putrawan
 
 ## Unduh
-Unduh aplikasi: [app-releae.apk](https://github.com/CPSG-09/hiddengems/releases/download/untagged-a77cc9c7d4f0f3cbf088/app-release.apk)
+Unduh aplikasi: [app-release.apk](https://github.com/CPSG-09/hiddengems/releases/download/untagged-a77cc9c7d4f0f3cbf088/app-release.apk)
 
 ## Screenshot
 ![](/docs/01-splash.png)![](/docs/02-home.png)
