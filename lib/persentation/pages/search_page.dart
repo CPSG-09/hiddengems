@@ -217,8 +217,8 @@ class _SearchPageBody extends StatelessWidget {
                       itemCount: value.near500mPlaces.length,
                       itemBuilder: (context, index) {
                         return ItemCard(
-                          id: 'id',
-                          placeModel: value.near500mPlaces[index],
+                          id: value.near500mPlaces[index].id,
+                          placeModel: value.near500mPlaces[index].placeModel,
                         );
                       },
                     );

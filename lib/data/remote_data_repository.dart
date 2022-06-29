@@ -10,13 +10,13 @@ class RemoteDataRepository {
   static final newestPlaces =
       placesCollection.orderBy("dateAdded", descending: true);
 
-  static Future<List<PlaceModel>> loadNearestPlaces500m(
+  static Future<List<PlaceModelId>> loadNearestPlaces500m(
       String query, String category, Position position) async {
     final minLat = position.latitude - 0.004;
     final maxLat = position.latitude + 0.004;
     final minLong = position.longitude - 0.004;
     final maxLong = position.longitude + 0.004;
-    List<PlaceModel> placesData = [];
+    List<PlaceModelId> placesData = [];
 
     // Query utama
     Query places = placesCollection;
@@ -40,7 +40,8 @@ class RemoteDataRepository {
       placesData = snapshot.docs.map((doc) {
         // dan doc.data() mengambil data sebenarnya.
         final data = doc.data() as Map<String, dynamic>;
-        return PlaceModel.fromFirestore(data);
+        return PlaceModelId(
+            id: doc.id, placeModel: PlaceModel.fromFirestore(data));
       }).toList();
     } catch (e) {
       rethrow;
@@ -50,7 +51,9 @@ class RemoteDataRepository {
     // Proses ini berjalan di aplikasi/front-end
     placesData = placesData
         .where(
-          (element) => element.latitude > minLat && element.latitude < maxLat,
+          (element) =>
+              element.placeModel.latitude > minLat &&
+              element.placeModel.latitude < maxLat,
         )
         .toList();
 
@@ -61,8 +64,9 @@ class RemoteDataRepository {
           .where(
             // toLowerCase biar hasil pencarian tidak
             // memperdulikan huruf besar atua kecil.
-            (element) =>
-                element.name.toLowerCase().contains(query.toLowerCase()),
+            (element) => element.placeModel.name
+                .toLowerCase()
+                .contains(query.toLowerCase()),
           )
           .toList();
     }

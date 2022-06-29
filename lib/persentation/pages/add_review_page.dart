@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hiddengems/data/auth_repository.dart';
 import 'package:hiddengems/data/models/rating_model.dart';
 import 'package:hiddengems/data/remote_data_repository.dart';
+import 'package:hiddengems/persentation/provider/rating_provider.dart';
 import 'package:hiddengems/persentation/widgets/cta_button.dart';
 import 'package:hiddengems/persentation/widgets/top_bar.dart';
 import 'package:hiddengems/theme.dart';
 import 'package:hiddengems/utils.dart';
+import 'package:provider/provider.dart';
 
 class AddReviewPage extends StatefulWidget {
   final String placeId;
@@ -62,6 +64,8 @@ class _AddReviewPageState extends State<AddReviewPage> {
         RemoteDataRepository.addRating(widget.placeId, uid, rating);
         AppUtils.showSnackbar(context, 'Berhasil menambahkan ulasan');
         Navigator.pop(context);
+        Provider.of<RatingProvider>(context, listen: false)
+            .loadRatings(widget.placeId);
       } catch (e) {
         // ignore: avoid_print
         print(e);

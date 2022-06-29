@@ -1,5 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class PlaceModelId {
+  final String id;
+  final PlaceModel placeModel;
+  PlaceModelId({
+    required this.id,
+    required this.placeModel,
+  });
+}
+
 class PlaceModel {
   final String name;
   final String address;

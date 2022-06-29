@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hiddengems/common.dart';
 import 'package:hiddengems/data/device_repository.dart';
 import 'package:hiddengems/data/models/place_model.dart';
 import 'package:hiddengems/data/remote_data_repository.dart';
@@ -13,7 +12,7 @@ class SearchProvider with ChangeNotifier {
   String query = '';
   int scrollIndex = 0;
 
-  List<PlaceModel> near500mPlaces = [];
+  List<PlaceModelId> near500mPlaces = [];
 
   void loadNearstPlace() async {
     // if (category == '') {

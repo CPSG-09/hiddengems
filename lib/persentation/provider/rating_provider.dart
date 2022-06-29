@@ -17,6 +17,8 @@ class RatingProvider with ChangeNotifier {
   int _numberOfRatings = 0;
 
   void loadRatings(String placeId) async {
+    print('loading ratings' + placeId);
+
     // State reset
     isLoading = true;
     isError = false;
