@@ -26,6 +26,10 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
+
 dependencies:
   flutter:
     sdk: flutter
@@ -41,12 +45,12 @@ dependencies:
   provider: ^6.0.2
 
   # UI additionals
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
   scrollable_positioned_list: ^0.3.2
 
   # Geo features
-  geolocator: ^8.2.1
-  flutter_osm_plugin: ^0.34.1
+  geolocator: ^9.0.2
+  flutter_osm_plugin: ^0.53.2
   maps_launcher: ^2.0.1
 
 dev_dependencies:
